@@ -65,7 +65,13 @@ section + section{border-top:1px solid var(--mist);}
 /* Hero (Home) */
 .hero{background:var(--ink);color:#C9C9C6;padding:150px 0 120px;}
 .hero .logo{width:150px;height:auto;margin:0 0 44px;opacity:.96;}
-.hero h1{font-size:clamp(2.8rem,6vw,4.209rem);color:var(--white);max-width:18ch;line-height:1.04;}
+.hero h1{font-size:clamp(2.8rem,6vw,4.209rem);color:var(--white);max-width:24ch;line-height:1.04;}
+/* Hero rotating phrase — ghost reserves width so nothing jumps; live phrase crossfades under a Brass hairline */
+.rotator{position:relative;display:inline-block;}
+.rotator .rw{white-space:nowrap;}
+.rotator .ghost{visibility:hidden;}
+.rotator .live{position:absolute;left:0;top:0;border-bottom:2px solid var(--brass);padding-bottom:.02em;transition:opacity .28s ease;}
+.rotator .live.fade{opacity:0;}
 .hero .lead{margin:28px 0 40px;font-size:1.3rem;max-width:50ch;}
 
 /* Page header (inner pages) */

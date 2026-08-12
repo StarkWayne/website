@@ -37,7 +37,7 @@
   <section class="hero">
     <div class="wrap">
       <img class="logo" src="assets/sw-logo-combined-inverted.png" alt="Stark Wayne">
-      <h1>The people you come to when you need something built.</h1>
+      <h1>The people you come to when you need <span class="rotator"><span class="rw ghost" aria-hidden="true">an idea off the ground.</span><span class="rw live" id="heroRotate">something built.</span></span></h1>
       <p class="lead">Senior people, straight answers, working software — since 2015. AI makes us fast — experience makes us right.</p>
       <a class="btn light" href="contact.html">Book a call</a>
       <p class="cta-micro">We&rsquo;ll call you back within the hour — you&rsquo;ll talk to someone who actually builds things.</p>
@@ -124,6 +124,27 @@
   </section>
 
 </main>
+
+<script>
+/* Hero: rotate the final phrase ~two cycles, then settle on "something built". */
+(function(){
+  var el = document.getElementById('heroRotate');
+  if(!el) return;
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var phrases = ['a problem solved.', 'an idea off the ground.', 'something built.'];
+  var seq = [0, 1, 2, 0, 1, 2]; /* two passes, lands on "something built." */
+  var i = 0;
+  var timer = setInterval(function(){
+    el.classList.add('fade');
+    setTimeout(function(){
+      el.textContent = phrases[seq[i]];
+      el.classList.remove('fade');
+      i++;
+      if(i >= seq.length) clearInterval(timer);
+    }, 280);
+  }, 2400);
+})();
+</script>
 
 <footer>
   <div class="wrap">
