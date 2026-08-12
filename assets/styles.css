@@ -118,6 +118,16 @@ section + section{border-top:1px solid var(--mist);}
 .cta h2{color:var(--white);max-width:none;}
 .cta .lead{margin:14px 0 34px;}
 
+/* Batch additions — CTA microcopy, credibility strip, proof kicker */
+.cta-micro{font-family:var(--sans);font-size:.85rem;line-height:1.5;color:var(--graphite);margin:16px 0 0;max-width:46ch;}
+.hero .cta-micro,.cta .cta-micro{color:#9a978f;}
+.cred-strip{padding:22px 0;border-top:1px solid var(--mist);border-bottom:1px solid var(--mist);background:var(--paper);}
+.cred-strip + section{border-top:0;}
+.cred-strip .wrap{font-family:var(--sans);font-size:.72rem;font-weight:600;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--graphite);}
+.kicker-line{font-family:var(--serif);font-weight:600;font-size:2.1rem;line-height:1.05;letter-spacing:-.01em;
+  color:var(--onyx);margin:20px 0 8px;}
+
 /* Contact / booking */
 .booking{display:grid;grid-template-columns:1.4fr 1fr;gap:64px;align-items:start;}
 .form-card{background:var(--white);border:1px solid var(--mist);border-radius:4px;padding:40px;}
