@@ -28,7 +28,7 @@ hairlines over boxes, restraint. Source of truth for copy + brand lives in the m
 
 ## Prototype caveats / before launch
 
-- **Placeholder phone `01785 000000`** — swap for the real Stark Wayne line.
+- Phone: **01785 508060** (the Stark Wayne line).
 - Stand up the **hello@starkwayne.co.uk** inbox.
 - **Booking form is a visual demo** — no data is sent. The real flow: request → Simon notified → he confirms
   with one tap → customer gets an SMS (see `booking-form.md` in the marketing workspace).
