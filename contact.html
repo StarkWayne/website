@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book a call — Stark Wayne</title>
+<meta name="description" content="A conversation, not a pitch. Tell us a little, pick a time, and Simon calls you back — within the hour.">
+<link rel="icon" href="assets/sw-logo-monogram.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="assets/sw-logo-simple.png" alt="Stark Wayne"></a>
+    <div style="display:flex;align-items:center;gap:36px;">
+      <nav class="nav-links" id="navlinks">
+        <a href="index.html">Home</a>
+        <a href="how-we-work.html">How we work</a>
+        <a href="proof.html">Proof</a>
+        <a href="about.html">About</a>
+        <a href="contact.html" aria-current="page">Contact</a>
+      </nav>
+      <a class="btn" href="contact.html">Book a call</a>
+      <button class="nav-toggle" aria-label="Menu" onclick="document.getElementById('navlinks').classList.toggle('open')">&#8801;</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-head">
+    <div class="wrap narrow">
+      <p class="eyebrow">Contact</p>
+      <h1>A conversation, not a pitch.</h1>
+      <p class="lead">Tell us a little, pick a time, and Simon calls you back — within the hour, in working hours. No forms in triplicate, no gatekeepers, no call centre.</p>
+    </div>
+  </section>
+
+  <section style="padding-top:0;border-top:0;">
+    <div class="wrap">
+      <div class="booking">
+
+        <!-- Form -->
+        <form class="form-card" id="bookform">
+          <div class="field">
+            <label>Your name</label>
+            <input type="text" required>
+          </div>
+          <div class="field">
+            <label>Phone number</label>
+            <input type="tel" required>
+            <div class="hint">Only ever used for the call.</div>
+          </div>
+          <div class="field">
+            <label>Email</label>
+            <input type="email" required>
+          </div>
+          <div class="field">
+            <label>Company website</label>
+            <input type="url" placeholder="https://" required>
+          </div>
+          <div class="field">
+            <label>Your role <span class="opt">(optional)</span></label>
+            <input type="text">
+          </div>
+          <div class="field">
+            <label>In a sentence, what do you need? <span class="opt">(optional)</span></label>
+            <textarea rows="2"></textarea>
+          </div>
+          <div class="field">
+            <label>When</label>
+            <div class="segmented">
+              <button type="button" class="active" id="seg-hour">Within the hour</button>
+              <button type="button" id="seg-time">Pick a time</button>
+            </div>
+            <div class="when-line" id="whenline"></div>
+          </div>
+          <button type="submit" class="btn">Book my call</button>
+        </form>
+
+        <!-- Confirmation (shown on submit) -->
+        <div class="form-card" id="bookdone" style="display:none;">
+          <p class="eyebrow">Request sent</p>
+          <h3>Simon&rsquo;s being notified now.</h3>
+          <p>You&rsquo;ll get a text in the next few minutes confirming your time. Anything you sent over, he&rsquo;ll have read before he calls.</p>
+          <p><small>Prototype — no message is actually sent.</small></p>
+        </div>
+
+        <!-- Who calls -->
+        <aside class="who">
+          <div class="avatar">SB</div>
+          <h3>Simon calls you.</h3>
+          <p class="role">Co-founder</p>
+          <p>Your call is with Simon Belcher, co-founder. He&rsquo;ll have looked at your website before he rings — so you can skip the background and get to what matters.</p>
+        </aside>
+
+      </div>
+
+      <!-- Fallback -->
+      <div class="fallback narrow">
+        <h3>Prefer to reach us directly?</h3>
+        <p class="addr">
+          <strong style="color:var(--onyx);">Stark Wayne</strong><br>
+          Woodland Lodge, Dunston Business Village, Stafford Road, Penkridge, Staffordshire, ST18 9AB<br>
+          <a href="mailto:hello@starkwayne.co.uk">hello@starkwayne.co.uk</a> &middot; 01785 000000
+        </p>
+        <p style="color:#3a3a3c;">Either way you reach the team, not a call centre.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <img src="assets/sw-logo-simple.png" alt="Stark Wayne">
+        <p style="max-width:32ch;margin:0;color:var(--graphite);">The people you come to when you need something built in the digital space.</p>
+      </div>
+      <div class="foot-links">
+        <a href="index.html">Home</a>
+        <a href="how-we-work.html">How we work</a>
+        <a href="proof.html">Proof</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="https://mpx.co.uk">MPX &#8599;</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>Stark Wayne Ltd · Registered in England &amp; Wales, company no. 09495737 · Woodland Lodge, Dunston Business Village, Stafford Road, Penkridge, Staffordshire, ST18 9AB</span>
+      <span><a href="mailto:hello@starkwayne.co.uk">hello@starkwayne.co.uk</a> · 01785 000000</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var hourBtn=document.getElementById('seg-hour');
+  var timeBtn=document.getElementById('seg-time');
+  var line=document.getElementById('whenline');
+  function fmt(d){var h=d.getHours(),m=d.getMinutes();var ap=h<12?'am':'pm';var hh=h%12;if(hh===0)hh=12;
+    return hh+':'+(m<10?'0':'')+m+ap;}
+  function inHours(d){var day=d.getDay(),h=d.getHours();
+    return day>=1&&day<=5&&h>=9&&h<17&&!(h>=12&&h<14);}
+  function renderHour(){
+    var now=new Date();
+    if(inHours(now)){
+      var by=new Date(now.getTime()+60*60000);
+      line.textContent="It’s "+fmt(now)+" — Simon will call you by "+fmt(by)+" today.";
+    } else {
+      line.textContent="Outside working hours — Simon will call you first thing on the next working day.";
+    }
+  }
+  hourBtn.addEventListener('click',function(){hourBtn.classList.add('active');timeBtn.classList.remove('active');renderHour();});
+  timeBtn.addEventListener('click',function(){timeBtn.classList.add('active');hourBtn.classList.remove('active');
+    line.textContent="Pick a time that suits you — Simon confirms it, and you get a text.";});
+  renderHour();
+
+  document.getElementById('bookform').addEventListener('submit',function(e){
+    e.preventDefault();
+    document.getElementById('bookform').style.display='none';
+    document.getElementById('bookdone').style.display='block';
+    window.scrollTo({top:document.querySelector('.page-head').offsetTop,behavior:'smooth'});
+  });
+})();
+</script>
+
+</body>
+</html>
