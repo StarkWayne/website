@@ -139,9 +139,8 @@ section + section{border-top:1px solid var(--mist);}
 
 /* Simon intro card */
 .who{border-left:2px solid var(--brass);padding-left:24px;}
-.who .avatar{width:76px;height:76px;border-radius:50%;background:var(--mist);margin-bottom:20px;
-  display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:1.6rem;
-  font-weight:600;color:var(--graphite);}
+.who .avatar{width:104px;height:104px;border-radius:50%;margin-bottom:22px;display:block;
+  object-fit:cover;filter:grayscale(1) contrast(1.03);background:var(--mist);}
 .who h3{font-size:1.5rem;margin-bottom:.2em;}
 .who .role{font-family:var(--sans);font-size:.85rem;text-transform:uppercase;letter-spacing:.1em;
   color:var(--brass);font-weight:600;margin-bottom:18px;}
