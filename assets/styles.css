@@ -60,7 +60,7 @@ section + section{border-top:1px solid var(--mist);}
 .dark h1,.dark h2,.dark h3{color:var(--white);}
 .dark .eyebrow{color:var(--brass);}
 .lead{font-size:1.25rem;line-height:1.5;color:#3a3a3c;max-width:56ch;}
-.dark .lead{color:#C9C9C6;}
+.dark .lead,.hero .lead,.cta .lead{color:#C9C9C6;}
 
 /* Hero (Home) */
 .hero{background:var(--ink);color:#C9C9C6;padding:150px 0 120px;}
