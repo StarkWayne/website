@@ -22,6 +22,8 @@ const json = (obj, status = 200) =>
 
 const str = (v) => (typeof v === "string" ? v.trim() : "");
 const isEmail = (v) => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v);
+const esc = (v) =>
+  String(v).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
 async function handleBooking(request, env) {
   let d;
@@ -48,6 +50,8 @@ async function handleBooking(request, env) {
 
   const notify = env.NOTIFY_EMAIL || "hello@starkwayne.co.uk";
   const from = env.SENDER_EMAIL || "Stark Wayne <onboarding@resend.dev>";
+  // Point image URLs at whatever domain served the form, so nothing hardcodes a domain that can rot.
+  const origin = new URL(request.url).origin;
 
   if (!env.RESEND_API_KEY) return json({ ok: false, error: "not-configured" }, 503);
 
@@ -64,14 +68,18 @@ What they need:
 ${need || "—"}`;
 
   const first = name.split(" ")[0] || name;
-  const ackBody =
+  const whenPhrase = when === "Within the hour" ? "within the hour" : "at " + when;
+
+  const ackText =
 `Hi ${first},
 
-Thanks — we've got your request. Simon will call you ${when === "Within the hour" ? "within the hour" : "at " + when}, and he'll have looked at your website first, so you can skip the background.
+Thanks — we've got your request. Simon will call you ${whenPhrase}. If anything comes up and he can't make that, he'll be in touch to rearrange.
 
-Speak soon,
+Thanks again — speak soon,
 Stark Wayne
 hello@starkwayne.co.uk · 01785 50 80 60`;
+
+  const ackHtml = ackEmailHtml({ first: esc(first), whenPhrase: esc(whenPhrase), origin });
 
   // The team notification is critical — if this fails, the booking failed.
   try {
@@ -83,7 +91,7 @@ hello@starkwayne.co.uk · 01785 50 80 60`;
   // The customer acknowledgement is best-effort. Don't fail the booking if it can't
   // send (e.g. Resend domain not yet verified for arbitrary recipients).
   try {
-    await send(env, { from, to: email, subject: "We've got your request — Stark Wayne", text: ackBody });
+    await send(env, { from, to: email, subject: "We've got your request — Stark Wayne", text: ackText, html: ackHtml });
   } catch {
     /* Simon already has the request; swallow. */
   }
@@ -98,4 +106,96 @@ async function send(env, payload) {
   });
   if (!res.ok) throw new Error("resend " + res.status);
   return res;
+}
+
+/**
+ * Branded HTML for the customer acknowledgement. Brand system: ../brand/guidelines.md —
+ * Paper/White surfaces, Ink header band, Mist hairlines, Brass used sparingly, Cormorant
+ * (Georgia fallback) headline / Inter (system-sans fallback) body. Table layout + inline
+ * styles for email-client support; images derive from `origin` so no domain is hardcoded.
+ */
+function ackEmailHtml({ first, whenPhrase, origin }) {
+  const PAPER = "#FAFAF7", WHITE = "#FFFFFF", INK = "#1A1A1D", ONYX = "#0B0B0C";
+  const GRAPHITE = "#6B6B70", MIST = "#E4E3DE", BRASS = "#9C7C4E", BRASS_TINT = "#F5EFE6";
+  const serif = "'Cormorant', Georgia, 'Times New Roman', serif";
+  const sans = "'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif";
+  const logo = origin + "/assets/sw-logo-combined-inverted.png";
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<title>We've got your request</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant:wght@600&family=Inter:wght@400;600&display=swap');
+  body { margin: 0; padding: 0; background: ${PAPER}; }
+  a { color: ${BRASS}; }
+</style>
+</head>
+<body style="margin:0;padding:0;background:${PAPER};">
+  <div style="display:none;max-height:0;overflow:hidden;opacity:0;">Simon will call you ${whenPhrase} — request received.</div>
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${PAPER};">
+    <tr>
+      <td align="center" style="padding:32px 16px;">
+        <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:600px;background:${WHITE};border:1px solid ${MIST};border-collapse:separate;">
+          <!-- Header band -->
+          <tr>
+            <td align="center" style="background:${INK};padding:32px 40px;">
+              <img src="${logo}" width="190" alt="Stark Wayne" style="display:block;width:190px;max-width:60%;height:auto;border:0;">
+            </td>
+          </tr>
+          <tr><td style="background:${BRASS};font-size:0;line-height:0;height:3px;">&nbsp;</td></tr>
+
+          <!-- Body -->
+          <tr>
+            <td style="padding:40px 40px 0;">
+              <p style="margin:0 0 14px;font-family:${sans};font-size:12px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:${BRASS};">Request received</p>
+              <h1 style="margin:0 0 20px;font-family:${serif};font-weight:600;font-size:34px;line-height:1.1;color:${ONYX};">Thanks, ${first}.</h1>
+              <p style="margin:0;font-family:${sans};font-size:16px;line-height:1.6;color:${ONYX};">We've got your request — it's with Simon now.</p>
+            </td>
+          </tr>
+
+          <!-- Callback note (Brass left-rule + faint tint) -->
+          <tr>
+            <td style="padding:28px 40px 0;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+                <tr>
+                  <td width="3" style="background:${BRASS};font-size:0;line-height:0;">&nbsp;</td>
+                  <td style="background:${BRASS_TINT};padding:18px 22px;">
+                    <p style="margin:0 0 6px;font-family:${sans};font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:${BRASS};">Your call</p>
+                    <p style="margin:0;font-family:${sans};font-size:17px;font-weight:600;line-height:1.4;color:${ONYX};">Simon will call you ${whenPhrase}.</p>
+                    <p style="margin:6px 0 0;font-family:${sans};font-size:14px;line-height:1.5;color:${GRAPHITE};">A real person, on an actual phone.</p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Reassurance + sign-off -->
+          <tr>
+            <td style="padding:28px 40px 40px;">
+              <p style="margin:0 0 24px;font-family:${sans};font-size:16px;line-height:1.6;color:${ONYX};">If anything comes up and he can't make that, he'll be in touch to rearrange.</p>
+              <p style="margin:0;font-family:${sans};font-size:16px;line-height:1.6;color:${ONYX};">Thanks again — speak soon,<br><span style="font-family:${serif};font-size:20px;color:${ONYX};">Stark Wayne</span></p>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr><td style="border-top:1px solid ${MIST};font-size:0;line-height:0;">&nbsp;</td></tr>
+          <tr>
+            <td style="padding:24px 40px 32px;">
+              <p style="margin:0 0 10px;font-family:${sans};font-size:14px;line-height:1.5;color:${GRAPHITE};">
+                <a href="mailto:hello@starkwayne.co.uk" style="color:${BRASS};text-decoration:none;">hello@starkwayne.co.uk</a>
+                &nbsp;·&nbsp; 01785 50 80 60
+              </p>
+              <p style="margin:0;font-family:${sans};font-size:11px;line-height:1.6;color:${GRAPHITE};">Stark Wayne Ltd · Registered in England and Wales, company no. 09495737 · Woodland Lodge, Dunston Business Village, Stafford Road, Penkridge, Staffordshire, ST18 9AB</p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
 }
