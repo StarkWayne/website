@@ -63,7 +63,10 @@ section + section{border-top:1px solid var(--mist);}
 .dark .lead,.hero .lead,.cta .lead{color:#C9C9C6;}
 
 /* Hero (Home) */
-.hero{background:var(--ink);color:#C9C9C6;padding:150px 0 120px;}
+.hero{background:var(--ink);color:#C9C9C6;padding:150px 0 120px;position:relative;overflow:hidden;}
+.hero-watermark{position:absolute;right:-40px;top:50%;transform:translateY(-50%);width:min(52vw,600px);
+  height:auto;filter:invert(1);opacity:.05;pointer-events:none;user-select:none;z-index:0;}
+.hero .wrap{position:relative;z-index:1;}
 .hero .logo{width:150px;height:auto;margin:0 0 44px;opacity:.96;}
 .hero h1{font-size:clamp(2.8rem,6vw,4.209rem);color:var(--white);max-width:24ch;line-height:1.04;}
 /* Hero rotating phrase — ghost reserves width so nothing jumps; live phrase crossfades under a Brass hairline */
