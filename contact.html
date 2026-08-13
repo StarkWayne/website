@@ -59,30 +59,33 @@
 
         <!-- Form -->
         <form class="form-card" id="bookform">
+          <div aria-hidden="true" style="position:absolute;left:-9999px;">
+            <label>Company<input type="text" id="f-company" tabindex="-1" autocomplete="off"></label>
+          </div>
           <div class="field">
             <label>Your name</label>
-            <input type="text" required>
+            <input type="text" id="f-name" required>
           </div>
           <div class="field">
             <label>Phone number</label>
-            <input type="tel" required>
+            <input type="tel" id="f-phone" required>
             <div class="hint">Only ever used for the call.</div>
           </div>
           <div class="field">
             <label>Email</label>
-            <input type="email" required>
+            <input type="email" id="f-email" required>
           </div>
           <div class="field">
             <label>Company website</label>
-            <input type="url" placeholder="https://" required>
+            <input type="url" id="f-website" placeholder="https://" required>
           </div>
           <div class="field">
             <label>Your role <span class="opt">(optional)</span></label>
-            <input type="text">
+            <input type="text" id="f-role">
           </div>
           <div class="field">
             <label>In a sentence, what do you need? <span class="opt">(optional)</span></label>
-            <textarea rows="2"></textarea>
+            <textarea rows="2" id="f-need"></textarea>
           </div>
           <div class="field">
             <label>When</label>
@@ -94,7 +97,7 @@
             <div class="scheduler" id="scheduler" hidden>
               <div class="sched-days" id="schedDays"></div>
               <div class="sched-times" id="schedTimes"></div>
-              <p class="sched-note">Your preferred time — Simon confirms it by text, usually within minutes.</p>
+              <p class="sched-note">Your preferred time — Simon will call you then; we&rsquo;ll email your acknowledgement now.</p>
             </div>
           </div>
           <button type="submit" class="btn">Book my call</button>
@@ -104,8 +107,14 @@
         <div class="form-card" id="bookdone" style="display:none;">
           <p class="eyebrow">Request sent</p>
           <h3>Simon&rsquo;s being notified now.</h3>
-          <p>You&rsquo;ll get a text in the next few minutes confirming your time. Anything you sent over, he&rsquo;ll have read before he calls.</p>
-          <p><small>Prototype — no message is actually sent.</small></p>
+          <p>Check your inbox — we&rsquo;ve emailed you an acknowledgement. Simon will call you shortly, and he&rsquo;ll have read anything you sent over before he does.</p>
+        </div>
+
+        <!-- Send failed (graceful fallback) -->
+        <div class="form-card" id="bookfail" style="display:none;">
+          <p class="eyebrow">Hmm &mdash;</p>
+          <h3>That didn&rsquo;t go through.</h3>
+          <p>Something went wrong sending your request. Reach us directly and we&rsquo;ll sort it right away: <a href="mailto:hello@starkwayne.co.uk">hello@starkwayne.co.uk</a> &middot; 01785 50 80 60.</p>
         </div>
 
         <!-- Who calls -->
@@ -227,11 +236,20 @@
   timeBtn.addEventListener('click',function(){ timeBtn.classList.add('active'); hourBtn.classList.remove('active'); line.style.display='none'; sched.hidden=false; if(!daysEl.children.length) buildDays(); });
   renderHour();
 
-  document.getElementById('bookform').addEventListener('submit',function(e){
+  var form=document.getElementById('bookform');
+  form.addEventListener('submit',function(e){
     e.preventDefault();
-    document.getElementById('bookform').style.display='none';
-    document.getElementById('bookdone').style.display='block';
-    window.scrollTo({top:document.querySelector('.page-head').offsetTop,behavior:'smooth'});
+    var v=function(id){ var el=document.getElementById(id); return el?el.value.trim():''; };
+    var whenVal = timeBtn.classList.contains('active')
+      ? (chosen.day && chosen.time ? chosen.day+', '+chosen.time : 'A specific time (to confirm)')
+      : 'Within the hour';
+    var payload={ name:v('f-name'), phone:v('f-phone'), email:v('f-email'), website:v('f-website'), role:v('f-role'), need:v('f-need'), when:whenVal, company_hp:v('f-company') };
+    var btn=form.querySelector('button[type=submit]');
+    btn.disabled=true; btn.textContent='Sending…';
+    var reveal=function(id){ form.style.display='none'; document.getElementById(id).style.display='block'; window.scrollTo({top:document.querySelector('.page-head').offsetTop,behavior:'smooth'}); };
+    fetch('/api/book',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)})
+      .then(function(r){ reveal(r.ok?'bookdone':'bookfail'); })
+      .catch(function(){ reveal('bookfail'); });
   });
 })();
 </script>
