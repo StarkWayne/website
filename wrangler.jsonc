@@ -9,6 +9,6 @@
   },
   "vars": {
     "NOTIFY_EMAIL": "hello@starkwayne.co.uk",
-    "SENDER_EMAIL": "Stark Wayne <onboarding@resend.dev>"
+    "SENDER_EMAIL": "Stark Wayne <hello@starkwayne.co.uk>"
   }
 }
