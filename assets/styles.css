@@ -75,6 +75,10 @@ section + section{border-top:1px solid var(--mist);}
 .rotator .ghost{visibility:hidden;}
 .rotator .live{position:absolute;left:0;top:0;border-bottom:2px solid var(--brass);padding-bottom:.02em;transition:opacity .28s ease;}
 .rotator .live.fade{opacity:0;}
+
+/* Scroll-in reveals (section entry) — gated by JS; reduced-motion & no-JS see everything */
+.reveal{opacity:0;transform:translateY(8px);transition:opacity .6s ease,transform .6s ease;}
+.reveal.in{opacity:1;transform:none;}
 .hero .lead{margin:28px 0 40px;font-size:1.3rem;max-width:50ch;}
 
 /* Page header (inner pages) */
