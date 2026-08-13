@@ -73,13 +73,21 @@ Speak soon,
 Stark Wayne
 hello@starkwayne.co.uk · 01785 50 80 60`;
 
+  // The team notification is critical — if this fails, the booking failed.
   try {
     await send(env, { from, to: notify, reply_to: email, subject: `Call request — ${name} (${when})`, text: teamBody });
-    await send(env, { from, to: email, subject: "We've got your request — Stark Wayne", text: ackBody });
-    return json({ ok: true });
   } catch {
     return json({ ok: false, error: "send-failed" }, 502);
   }
+
+  // The customer acknowledgement is best-effort. Don't fail the booking if it can't
+  // send (e.g. Resend domain not yet verified for arbitrary recipients).
+  try {
+    await send(env, { from, to: email, subject: "We've got your request — Stark Wayne", text: ackBody });
+  } catch {
+    /* Simon already has the request; swallow. */
+  }
+  return json({ ok: true });
 }
 
 async function send(env, payload) {
