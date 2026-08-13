@@ -73,13 +73,13 @@ ${need || "—"}`;
   const ackText =
 `Hi ${first},
 
-Thanks — we've got your request. Simon will call you ${whenPhrase}. If anything comes up and he can't make that, he'll be in touch to rearrange.
+Thanks — we've got your request. Simon will call you ${whenPhrase}, on ${phone}. If anything comes up and he can't make that, he'll be in touch to rearrange. Wrong number, or need to change something? Just reply — this inbox is watched.
 
 Thanks again — speak soon,
 Stark Wayne
 hello@starkwayne.co.uk · 01785 50 80 60`;
 
-  const ackHtml = ackEmailHtml({ first: esc(first), whenPhrase: esc(whenPhrase), origin });
+  const ackHtml = ackEmailHtml({ first: esc(first), whenPhrase: esc(whenPhrase), phone: esc(phone), origin });
 
   // The team notification is critical — if this fails, the booking failed.
   try {
@@ -114,7 +114,7 @@ async function send(env, payload) {
  * (Georgia fallback) headline / Inter (system-sans fallback) body. Table layout + inline
  * styles for email-client support; images derive from `origin` so no domain is hardcoded.
  */
-function ackEmailHtml({ first, whenPhrase, origin }) {
+function ackEmailHtml({ first, whenPhrase, phone, origin }) {
   const PAPER = "#FAFAF7", WHITE = "#FFFFFF", INK = "#1A1A1D", ONYX = "#0B0B0C";
   const GRAPHITE = "#6B6B70", MIST = "#E4E3DE", BRASS = "#9C7C4E", BRASS_TINT = "#F5EFE6";
   const serif = "'Cormorant', Georgia, 'Times New Roman', serif";
@@ -165,7 +165,7 @@ function ackEmailHtml({ first, whenPhrase, origin }) {
                   <td width="3" style="background:${BRASS};font-size:0;line-height:0;">&nbsp;</td>
                   <td style="background:${BRASS_TINT};padding:18px 22px;">
                     <p style="margin:0 0 6px;font-family:${sans};font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:${BRASS};">Your call</p>
-                    <p style="margin:0;font-family:${sans};font-size:17px;font-weight:600;line-height:1.4;color:${ONYX};">Simon will call you ${whenPhrase}.</p>
+                    <p style="margin:0;font-family:${sans};font-size:17px;font-weight:600;line-height:1.4;color:${ONYX};">Simon will call you ${whenPhrase}, on ${phone}.</p>
                     <p style="margin:6px 0 0;font-family:${sans};font-size:14px;line-height:1.5;color:${GRAPHITE};">A real person, on an actual phone.</p>
                   </td>
                 </tr>
@@ -176,7 +176,7 @@ function ackEmailHtml({ first, whenPhrase, origin }) {
           <!-- Reassurance + sign-off -->
           <tr>
             <td style="padding:28px 40px 40px;">
-              <p style="margin:0 0 24px;font-family:${sans};font-size:16px;line-height:1.6;color:${ONYX};">If anything comes up and he can't make that, he'll be in touch to rearrange.</p>
+              <p style="margin:0 0 24px;font-family:${sans};font-size:16px;line-height:1.6;color:${ONYX};">If anything comes up and he can't make that, he'll be in touch to rearrange. Wrong number, or need to change something? Just reply — this inbox is watched.</p>
               <p style="margin:0;font-family:${sans};font-size:16px;line-height:1.6;color:${ONYX};">Thanks again — speak soon,<br><span style="font-family:${serif};font-size:20px;color:${ONYX};">Stark Wayne</span></p>
             </td>
           </tr>
