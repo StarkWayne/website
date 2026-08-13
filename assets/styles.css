@@ -84,6 +84,11 @@ section + section{border-top:1px solid var(--mist);}
 .big-numeral{font-family:var(--serif);font-weight:600;font-size:clamp(3.5rem,9vw,6.5rem);line-height:.9;
   color:var(--brass);margin:0 0 .12em;letter-spacing:-.02em;}
 .hero .lead{margin:28px 0 40px;font-size:1.3rem;max-width:50ch;}
+/* EST. 2015 lockup (trial) — stacked mark + caption */
+.est-lockup{display:inline-block;margin:0 0 44px;}
+.est-lockup .logo{margin:0 0 12px;display:block;}
+.est-line{font-family:var(--sans);font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.2em;text-align:center;color:var(--graphite);}
+.hero .est-line{color:#C9C9C6;}
 
 /* Page header (inner pages) */
 .page-head{padding:120px 0 64px;}
