@@ -167,6 +167,15 @@ section + section{border-top:1px solid var(--mist);}
 .segmented button.active{background:var(--brass);color:var(--onyx);}
 .segmented button + button{border-left:1px solid var(--mist);}
 .when-line{font-size:.9rem;color:var(--brassink);margin-top:12px;}
+.scheduler{margin-top:16px;}
+.scheduler[hidden]{display:none;}
+.sched-days,.sched-times{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
+.sched-times:empty{display:none;}
+.pill{font-family:var(--sans);font-size:.85rem;font-weight:500;padding:8px 14px;border:1px solid var(--mist);
+  border-radius:4px;background:var(--white);color:var(--onyx);cursor:pointer;transition:border-color .15s,background .15s,color .15s;}
+.pill:hover{border-color:var(--brass);}
+.pill.active{background:var(--brass);border-color:var(--brass);color:var(--onyx);}
+.sched-note{font-size:.78rem;color:var(--graphite);margin:2px 0 0;}
 .form-card .btn{margin-top:8px;width:100%;text-align:center;}
 
 /* Simon intro card */

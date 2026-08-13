@@ -91,6 +91,11 @@
               <button type="button" id="seg-time">Pick a time</button>
             </div>
             <div class="when-line" id="whenline"></div>
+            <div class="scheduler" id="scheduler" hidden>
+              <div class="sched-days" id="schedDays"></div>
+              <div class="sched-times" id="schedTimes"></div>
+              <p class="sched-note">Your preferred time — Simon confirms it by text, usually within minutes.</p>
+            </div>
           </div>
           <button type="submit" class="btn">Book my call</button>
         </form>
@@ -153,25 +158,73 @@
 
 <script>
 (function(){
-  var hourBtn=document.getElementById('seg-hour');
-  var timeBtn=document.getElementById('seg-time');
-  var line=document.getElementById('whenline');
-  function fmt(d){var h=d.getHours(),m=d.getMinutes();var ap=h<12?'am':'pm';var hh=h%12;if(hh===0)hh=12;
-    return hh+':'+(m<10?'0':'')+m+ap;}
-  function inHours(d){var day=d.getDay(),h=d.getHours();
-    return day>=1&&day<=5&&h>=9&&h<17&&!(h>=12&&h<14);}
+  var hourBtn = document.getElementById('seg-hour');
+  var timeBtn = document.getElementById('seg-time');
+  var line    = document.getElementById('whenline');
+  var sched   = document.getElementById('scheduler');
+  var daysEl  = document.getElementById('schedDays');
+  var timesEl = document.getElementById('schedTimes');
+  var chosen  = { day:null, time:null };
+
+  function fmt(d){ var h=d.getHours(),m=d.getMinutes(),ap=h<12?'am':'pm',hh=h%12; if(hh===0)hh=12; return hh+':'+(m<10?'0':'')+m+ap; }
+  function inHours(d){ var g=d.getDay(),h=d.getHours(); return g>=1&&g<=5&&h>=9&&h<17&&!(h>=12&&h<14); }
+  function slotLabel(h,m){ var ap=h<12?'am':'pm',hh=h%12; if(hh===0)hh=12; return hh+':'+(m<10?'0':'')+m+ap; }
+
   function renderHour(){
     var now=new Date();
-    if(inHours(now)){
-      var by=new Date(now.getTime()+60*60000);
-      line.textContent="It’s "+fmt(now)+" — Simon will call you by "+fmt(by)+" today.";
-    } else {
-      line.textContent="Outside working hours — Simon will call you first thing on the next working day.";
+    if(inHours(now)){ var by=new Date(now.getTime()+3600000); line.textContent="It’s "+fmt(now)+" — Simon will call you by "+fmt(by)+" today."; }
+    else { line.textContent="Outside working hours — Simon will call you first thing on the next working day."; }
+  }
+
+  var SLOTS=[[9,0],[9,30],[10,0],[10,30],[11,0],[11,30],[14,0],[14,30],[15,0],[15,30],[16,0],[16,30]];
+  var DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+  function slotsFor(date){
+    var now=new Date(), isToday=date.toDateString()===now.toDateString(), out=[];
+    for(var i=0;i<SLOTS.length;i++){
+      if(isToday){ var s=new Date(date); s.setHours(SLOTS[i][0],SLOTS[i][1],0,0); if(s.getTime() < now.getTime()+30*60000) continue; }
+      out.push(SLOTS[i]);
+    }
+    return out;
+  }
+
+  function renderTimes(date){
+    timesEl.innerHTML=''; chosen.time=null;
+    slotsFor(date).forEach(function(sl){
+      var b=document.createElement('button'); b.type='button'; b.className='pill'; b.textContent=slotLabel(sl[0],sl[1]);
+      b.addEventListener('click',function(){
+        Array.prototype.forEach.call(timesEl.children,function(c){c.classList.remove('active');});
+        b.classList.add('active'); chosen.time=b.textContent;
+      });
+      timesEl.appendChild(b);
+    });
+  }
+
+  function buildDays(){
+    daysEl.innerHTML=''; timesEl.innerHTML=''; chosen.day=null; chosen.time=null;
+    var base=new Date(); base.setHours(0,0,0,0);
+    var today=new Date(); today.setHours(0,0,0,0);
+    var tomorrow=new Date(today); tomorrow.setDate(today.getDate()+1);
+    var picked=0, off=0;
+    while(picked<5 && off<21){
+      var day=new Date(base); day.setDate(base.getDate()+off); off++;
+      var g=day.getDay(); if(g===0||g===6) continue;
+      if(day.toDateString()===(new Date()).toDateString() && slotsFor(day).length===0) continue;
+      var label = day.getTime()===today.getTime() ? 'Today' : (day.getTime()===tomorrow.getTime() ? 'Tomorrow' : DAYS[g]+' '+day.getDate());
+      (function(dd,lab){
+        var b=document.createElement('button'); b.type='button'; b.className='pill'; b.textContent=lab;
+        b.addEventListener('click',function(){
+          Array.prototype.forEach.call(daysEl.children,function(c){c.classList.remove('active');});
+          b.classList.add('active'); chosen.day=lab; renderTimes(dd);
+        });
+        daysEl.appendChild(b);
+      })(day,label);
+      picked++;
     }
   }
-  hourBtn.addEventListener('click',function(){hourBtn.classList.add('active');timeBtn.classList.remove('active');renderHour();});
-  timeBtn.addEventListener('click',function(){timeBtn.classList.add('active');hourBtn.classList.remove('active');
-    line.textContent="Pick a time that suits you — Simon confirms it, and you get a text.";});
+
+  hourBtn.addEventListener('click',function(){ hourBtn.classList.add('active'); timeBtn.classList.remove('active'); sched.hidden=true; line.style.display=''; renderHour(); });
+  timeBtn.addEventListener('click',function(){ timeBtn.classList.add('active'); hourBtn.classList.remove('active'); line.style.display='none'; sched.hidden=false; if(!daysEl.children.length) buildDays(); });
   renderHour();
 
   document.getElementById('bookform').addEventListener('submit',function(e){
