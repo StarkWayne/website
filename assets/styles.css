@@ -79,6 +79,10 @@ section + section{border-top:1px solid var(--mist);}
 /* Scroll-in reveals (section entry) — gated by JS; reduced-motion & no-JS see everything */
 .reveal{opacity:0;transform:translateY(8px);transition:opacity .6s ease,transform .6s ease;}
 .reveal.in{opacity:1;transform:none;}
+
+/* Big Brass numeral (decade beat) — "key numerals" is a sanctioned Brass use */
+.big-numeral{font-family:var(--serif);font-weight:600;font-size:clamp(3.5rem,9vw,6.5rem);line-height:.9;
+  color:var(--brass);margin:0 0 .12em;letter-spacing:-.02em;}
 .hero .lead{margin:28px 0 40px;font-size:1.3rem;max-width:50ch;}
 
 /* Page header (inner pages) */
