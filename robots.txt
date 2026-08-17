@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://starkwayne.co.uk/sitemap.xml
