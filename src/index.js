@@ -48,7 +48,8 @@ async function handleBooking(request, env) {
   const need = str(d.need);
   const when = str(d.when) || "Not specified";
 
-  const notify = env.NOTIFY_EMAIL || "hello@starkwayne.co.uk";
+  // NOTIFY_EMAIL may be a comma-separated list; Resend accepts an array of recipients.
+  const notify = (env.NOTIFY_EMAIL || "hello@starkwayne.co.uk").split(",").map((s) => s.trim()).filter(Boolean);
   const from = env.SENDER_EMAIL || "Stark Wayne <onboarding@resend.dev>";
   // Point image URLs at whatever domain served the form, so nothing hardcodes a domain that can rot.
   const origin = new URL(request.url).origin;

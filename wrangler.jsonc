@@ -8,7 +8,7 @@
     "binding": "ASSETS"
   },
   "vars": {
-    "NOTIFY_EMAIL": "hello@starkwayne.co.uk",
+    "NOTIFY_EMAIL": "hello@starkwayne.co.uk, w3dave@pm.me",
     "SENDER_EMAIL": "Stark Wayne <hello@starkwayne.co.uk>"
   }
 }
