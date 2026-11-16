@@ -1,0 +1,21 @@
+# Stark Wayne
+
+> Stark Wayne Ltd is the UK software company behind MPX. Founded in 2015 and based in Stafford, Staffordshire. We also take on custom software outside MPX.
+
+The company is led by its two founders, Simon Belcher (Operations Director) and David Burgess (Technical Director), with a close team of experienced developers. The directors still build, and customers deal with the team directly: no account managers.
+
+## What we do
+
+- [MPX](https://www.mpx.co.uk): our business system. One system a whole business runs on: stock, orders, jobs, people and money, shaped around how each business works.
+- Custom software outside MPX: taking over apps someone built with AI that a business now depends on (understanding them, making them safe, building them forward), and building new tools and products properly.
+
+## Pages
+
+- [Home](https://starkwayne.co.uk/)
+- [Talk to us](https://starkwayne.co.uk/contact): Simon calls you back, within the hour in working hours.
+
+## Company
+
+- Registered name: Stark Wayne Ltd, company no. 09495737 (England and Wales)
+- Registered office: Woodland Lodge, Dunston Business Village, Stafford Road, Penkridge, Staffordshire ST18 9AB
+- Email: hello@starkwayne.co.uk · Phone: 01785 50 80 60
