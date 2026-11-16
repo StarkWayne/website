@@ -1,0 +1,7 @@
+# Pages retired when the site became the one-page company site (David + Simon, 2026-11-16)
+/how-we-work  https://www.mpx.co.uk/how-it-works  301
+/proof        https://www.mpx.co.uk/case-studies/edf-heat-pumps-cbheating  301
+/about        /#who-we-are  301
+/careers      /#careers  301
+/articles     https://www.mpx.co.uk/blog-articles  301
+/articles/*   https://www.mpx.co.uk/blog-articles  301

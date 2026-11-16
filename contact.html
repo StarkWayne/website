@@ -3,60 +3,122 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Book a call — Stark Wayne</title>
-<meta name="description" content="A conversation, not a pitch. Tell us a little, pick a time and Simon calls you back — within the hour.">
+<title>Talk to us — Stark Wayne</title>
+<meta name="description" content="Custom software outside MPX: an app to take over, or a new idea. Tell us a little and Simon calls you back.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Stark Wayne">
-<meta property="og:title" content="Book a call — Stark Wayne">
-<meta property="og:description" content="A conversation, not a pitch. Tell us a little, pick a time, and Simon calls you back — within the hour.">
+<meta property="og:title" content="Talk to us — Stark Wayne">
+<meta property="og:description" content="Custom software outside MPX: an app to take over, or a new idea. Tell us a little and Simon calls you back.">
 <meta property="og:url" content="https://starkwayne.co.uk/contact">
 <meta property="og:image" content="https://starkwayne.co.uk/assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Book a call — Stark Wayne">
-<meta name="twitter:description" content="A conversation, not a pitch. Tell us a little, pick a time, and Simon calls you back — within the hour.">
+<meta name="twitter:title" content="Talk to us — Stark Wayne">
+<meta name="twitter:description" content="Custom software outside MPX: an app to take over, or a new idea. Tell us a little and Simon calls you back.">
 <meta name="twitter:image" content="https://starkwayne.co.uk/assets/og-image.png">
-<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="icon" type="image/png" href="/assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="/assets/styles.css">
+<style>
+  /* Contact (2026-11-16): dark hero with the form, then direct details. Form ids unchanged. */
+  :root{--brass-soft:#C9A876;--ink2:#121214;--dim:#8B887F;--soft:#B9B6AF;}
+  section{padding:0;} section + section{border-top:0;}
+  .d{background:var(--ink2);color:var(--soft);position:relative;overflow:hidden;}
+  .d .eyebrow{color:var(--brass-soft);}
+  .glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(55% 65% at 85% 25%,rgba(156,124,78,.16),transparent 70%),radial-gradient(40% 50% at 0% 100%,rgba(255,255,255,.035),transparent 70%);}
+  .tl{font-family:var(--sans);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brass);padding-bottom:3px;color:#E4D3B4;}
+  .c-hero{padding:88px 0 104px;}
+  .c-grid{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,31rem);gap:72px;align-items:start;}
+  .c-hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(2.9rem,5vw,4.6rem);line-height:1.02;color:#F7F4EE;margin:16px 0 22px;letter-spacing:-.01em;}
+  .c-hero .lead{color:var(--soft);font-size:1.15rem;line-height:1.6;max-width:32rem;}
+  .c-points{list-style:none;margin:28px 0 0;padding:0;}
+  .c-points li{position:relative;padding:8px 0 8px 28px;font:500 .98rem var(--sans);color:#E8E5DE;}
+  .c-points li::before{content:"";position:absolute;left:2px;top:15px;width:12px;height:6px;border-left:1.5px solid var(--brass);border-bottom:1.5px solid var(--brass);transform:rotate(-45deg);}
+  .who2c{display:flex;gap:18px;align-items:center;margin-top:36px;padding-top:28px;border-top:1px solid rgba(255,255,255,.1);max-width:32rem;}
+  .who2c img{width:72px;height:72px;border-radius:50%;object-fit:cover;filter:grayscale(1) contrast(1.05);box-shadow:0 0 0 1px var(--brass),0 0 0 5px var(--ink2),0 0 0 6px rgba(156,124,78,.35);flex:none;}
+  .who2c b{display:block;font:600 1.35rem var(--serif);color:#F7F4EE;}
+  .who2c span{font:400 .9rem/1.5 var(--sans);color:var(--dim);}
+  .mpx-note{margin-top:28px;font:400 .95rem var(--sans);color:var(--dim);}
+  .c-form .form-card{background:#FAFAF7;border:0;border-radius:8px;padding:40px;box-shadow:0 50px 100px -40px rgba(0,0,0,.8);color:#3a3a3c;position:relative;}
+  .c-form .form-card h3{font:600 1.8rem var(--serif);color:var(--onyx);}
+  .form-note{text-align:center;font:400 .8rem var(--sans);color:var(--graphite);margin:12px 0 0;}
+  .topics{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;}
+  .c-direct{padding:96px 0;}
+  .c-direct-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:72px;align-items:start;}
+  .c-direct h2{font-family:var(--serif);font-weight:600;font-size:clamp(2rem,3.4vw,2.8rem);line-height:1.08;margin:12px 0 0;color:var(--onyx);}
+  .ledger{margin:0;border-top:1px solid var(--onyx);}
+  .ledger div{display:grid;grid-template-columns:7rem 1fr;align-items:baseline;padding:20px 0;border-bottom:1px solid var(--mist);}
+  .ledger dt{font:600 .72rem var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--graphite);}
+  .ledger dd{margin:0;font:600 1.35rem/1.35 var(--serif);color:var(--onyx);}
+  .ledger a{color:var(--onyx);text-decoration:underline;text-decoration-color:var(--brass);text-underline-offset:4px;text-decoration-thickness:1px;}
+  @media (max-width:900px){
+    .c-grid,.c-direct-grid{grid-template-columns:1fr;gap:48px;}
+    .c-hero{padding:64px 0 80px;}
+    .c-form .form-card{padding:28px;}
+    .ledger div{grid-template-columns:1fr;gap:6px;}
+  }
+</style>
 </head>
 <body>
 
-<header class="nav">
+<header class="nav" id="nav">
   <div class="wrap">
-    <a class="brand" href="/"><img src="assets/sw-logo-simple.png" alt="Stark Wayne"></a>
-    <div style="display:flex;align-items:center;gap:36px;">
-      <nav class="nav-links" id="navlinks">
-        <a href="/">Home</a>
-        <a href="/how-we-work">How we work</a>
-        <a href="/proof">Proof</a>
-        <a href="/about">About</a>
-        <a href="/contact" aria-current="page">Contact</a>
-      </nav>
-      <a class="btn" href="/contact">Book a call</a>
-      <button class="nav-toggle" aria-label="Menu" onclick="document.getElementById('navlinks').classList.toggle('open')">&#8801;</button>
+    <a class="brand" href="/" aria-label="Stark Wayne home"><img src="/assets/sw-logo-simple.png" alt="Stark Wayne"></a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="/#what-we-do">What we do</a>
+      <a href="/#custom">Custom software</a>
+      <a href="/#who-we-are">Who we are</a>
+      <a href="/#company">Company</a>
+    </nav>
+    <div class="nav-right">
+      <a class="btn" href="/contact">Talk to us</a>
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
     </div>
   </div>
 </header>
+<div class="menu" id="menu">
+  <div class="menu-inner">
+    <ol>
+      <li><a href="/#what-we-do"><b>What we do</b><small>MPX, and software outside it</small></a></li>
+      <li><a href="/#custom"><b>Custom software</b><small>Take over an app, or build something new</small></a></li>
+      <li><a href="/#who-we-are"><b>Who we are</b><small>Small, senior and still building</small></a></li>
+      <li><a href="/#company"><b>Company</b><small>The details, and careers</small></a></li>
+      <li><a href="/contact"><b>Contact</b><small>Talk to the people who build it</small></a></li>
+    </ol>
+    <div class="menu-foot">
+      <a class="btn" href="/contact">Talk to us</a>
+      <p><a href="mailto:hello@starkwayne.co.uk">hello@starkwayne.co.uk</a><br><a href="tel:+441785508060">01785 50 80 60</a><br><a class="mpx" href="https://www.mpx.co.uk">Visit mpx.co.uk &#8599;</a></p>
+    </div>
+  </div>
+</div>
 
 <main>
 
-  <section class="page-head">
-    <div class="wrap narrow">
-      <p class="eyebrow">Contact</p>
-      <h1>A conversation, not a pitch.</h1>
-      <p class="lead">Tell us a little, pick a time and Simon calls you back — within the hour, in working hours. No forms in triplicate, no gatekeepers, no call centre.</p>
-    </div>
-  </section>
-
-  <section style="padding-top:0;border-top:0;">
-    <div class="wrap">
-      <div class="booking">
-
-        <!-- Form -->
+  <section class="c-hero d">
+    <div class="glow"></div>
+    <div class="wrap c-grid">
+      <div>
+        <p class="eyebrow">Talk to us</p>
+        <h1>A conversation,<br>not a pitch.</h1>
+        <p class="lead">An app that&rsquo;s outgrown the person who built it, or a new idea that needs building properly. Tell us a little, pick a time and Simon calls you back, within the hour in working hours.</p>
+        <ul class="c-points">
+          <li>Free, and no obligation</li>
+          <li>You speak to a founder, not a salesperson</li>
+          <li>Within the hour, in working hours</li>
+        </ul>
+        <div class="who2c">
+          <img src="/assets/simon.png" alt="Simon Belcher">
+          <div>
+            <b>Simon calls you</b>
+            <span>Co-founder &middot; Operations Director. He&rsquo;ll have looked at your business before he rings, so you can skip the background.</span>
+          </div>
+        </div>
+        <p class="mpx-note">Looking at MPX? <a class="tl" href="https://www.mpx.co.uk/book-demo">Book an MPX demo &#8599;</a></p>
+      </div>
+      <div class="c-form">
         <form class="form-card" id="bookform">
           <div aria-hidden="true" style="position:absolute;left:-9999px;">
             <label>Company<input type="text" id="f-company" tabindex="-1" autocomplete="off"></label>
@@ -83,8 +145,16 @@
             <input type="text" id="f-role">
           </div>
           <div class="field">
+            <label>What&rsquo;s it about?</label>
+            <div class="topics" id="topics">
+              <button type="button" class="pill" data-t="Taking over an app">Taking over an app</button>
+              <button type="button" class="pill" data-t="Building something new">Building something new</button>
+              <button type="button" class="pill" data-t="Something else">Something else</button>
+            </div>
+          </div>
+          <div class="field">
             <label>In a sentence, what do you need? <span class="opt">(optional)</span></label>
-            <textarea rows="2" id="f-need"></textarea>
+            <textarea rows="3" id="f-need" placeholder="e.g. Someone built us a quoting tool with AI and it keeps falling over"></textarea>
           </div>
           <div class="field">
             <label>When</label>
@@ -100,6 +170,7 @@
             </div>
           </div>
           <button type="submit" class="btn">Book my call</button>
+          <p class="form-note">Only ever used to arrange your call. No mailing lists.</p>
         </form>
 
         <!-- Confirmation (shown on submit) -->
@@ -116,52 +187,51 @@
           <p>Something went wrong sending your request. Reach us directly and we&rsquo;ll sort it right away: <a href="mailto:hello@starkwayne.co.uk">hello@starkwayne.co.uk</a> &middot; 01785 50 80 60.</p>
         </div>
 
-        <!-- Who calls -->
-        <aside class="who">
-          <img class="avatar" src="assets/simon.png" alt="Simon Belcher">
-          <h3>Simon calls you.</h3>
-          <p class="role">Co-founder</p>
-          <p>Your call is with Simon Belcher, co-founder. He&rsquo;ll have looked at your website before he rings — so you can skip the background and get to what matters.</p>
-        </aside>
-
       </div>
+    </div>
+  </section>
 
-      <!-- Fallback -->
-      <div class="fallback narrow">
-        <h3>Prefer to reach us directly?</h3>
-        <p class="addr">
-          <strong style="color:var(--onyx);">Stark Wayne</strong><br>
-          Woodland Lodge, Dunston Business Village, Stafford Road, Penkridge, Staffordshire, ST18 9AB<br>
-          <a href="mailto:hello@starkwayne.co.uk">hello@starkwayne.co.uk</a> &middot; 01785 50 80 60
-        </p>
-        <p style="color:#3a3a3c;">Either way you reach the team, not a call centre.</p>
+  <section class="c-direct">
+    <div class="wrap c-direct-grid">
+      <div>
+        <p class="eyebrow">Prefer to reach us directly?</p>
+        <h2>Either way, you reach the team.</h2>
       </div>
+      <dl class="ledger">
+        <div><dt>Email</dt><dd><a href="mailto:hello@starkwayne.co.uk">hello@starkwayne.co.uk</a></dd></div>
+        <div><dt>Phone</dt><dd><a href="tel:+441785508060">01785 50 80 60</a></dd></div>
+        <div><dt>Office</dt><dd>Woodland Lodge<br>Dunston Business Village<br>Stafford Road<br>Penkridge<br>Staffordshire<br>ST18 9AB</dd></div>
+      </dl>
     </div>
   </section>
 
 </main>
 
-<footer>
+<footer class="foot">
   <div class="wrap">
-    <div class="foot-top">
+    <div class="foot-grid">
       <div>
-        <img src="assets/sw-logo-simple.png" alt="Stark Wayne">
-        <p style="max-width:32ch;margin:0;color:var(--graphite);">The people you come to when you need something built.</p>
+        <img src="/assets/sw-logo-simple.png" alt="Stark Wayne">
+        <p>The people you come to when you need something built. The company behind MPX.</p>
       </div>
-      <div class="foot-links">
-        <a href="/">Home</a>
-        <a href="/how-we-work">How we work</a>
-        <a href="/proof">Proof</a>
-        <a href="/about">About</a>
-        <a href="/articles">Articles</a>
-        <a href="/careers">Careers</a>
-        <a href="/contact">Contact</a>
-        <a href="https://mpx.co.uk">MPX &#8599;</a>
+      <div>
+        <h4>Stark Wayne</h4>
+        <a href="/#what-we-do">What we do</a>
+        <a href="/#custom">Custom software</a>
+        <a href="/#who-we-are">Who we are</a>
+        <a href="/#company">Company</a>
+        <a href="/#careers">Careers</a>
+      </div>
+      <div>
+        <h4>Get in touch</h4>
+        <a href="/contact">Talk to us</a>
+        <a href="mailto:hello@starkwayne.co.uk">hello@starkwayne.co.uk</a>
+        <a href="tel:+441785508060">01785 50 80 60</a>
+        <a class="mpx" href="https://www.mpx.co.uk">Visit mpx.co.uk &#8599;</a>
       </div>
     </div>
     <div class="foot-legal">
-      <span>Stark Wayne Ltd · Registered in England and Wales, company no. 09495737 · Woodland Lodge, Dunston Business Village, Stafford Road, Penkridge, Staffordshire, ST18 9AB</span>
-      <span><a href="mailto:hello@starkwayne.co.uk">hello@starkwayne.co.uk</a> · 01785 50 80 60</span>
+      <span>&copy; <span id="yr">2026</span> Stark Wayne Ltd. Registered in England and Wales, company no. 09495737. Registered office: Woodland Lodge, Dunston Business Village, Stafford Road, Penkridge, Staffordshire ST18 9AB.</span>
     </div>
   </div>
 </footer>
@@ -244,10 +314,12 @@
     var whenVal = timeBtn.classList.contains('active')
       ? (chosen.day && chosen.time ? chosen.day+', '+chosen.time : 'A specific time (to confirm)')
       : 'Within the hour';
-    var payload={ name:v('f-name'), phone:v('f-phone'), email:v('f-email'), website:v('f-website'), role:v('f-role'), need:v('f-need'), when:whenVal, company_hp:v('f-company') };
+    var tp=document.querySelector('#topics .pill.active'); var topic=tp ? tp.getAttribute('data-t') : '';
+    var needText=[topic, v('f-need')].filter(Boolean).join(': ');
+    var payload={ name:v('f-name'), phone:v('f-phone'), email:v('f-email'), website:v('f-website'), role:v('f-role'), need:needText, when:whenVal, company_hp:v('f-company') };
     var btn=form.querySelector('button[type=submit]');
     btn.disabled=true; btn.textContent='Sending…';
-    var reveal=function(id){ form.style.display='none'; document.getElementById(id).style.display='block'; window.scrollTo({top:document.querySelector('.page-head').offsetTop,behavior:'smooth'}); };
+    var reveal=function(id){ form.style.display='none'; document.getElementById(id).style.display='block'; var el=document.getElementById(id); window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-110,behavior:'smooth'}); };
     fetch('/api/book',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)})
       .then(function(r){ reveal(r.ok?'bookdone':'bookfail'); })
       .catch(function(){ reveal('bookfail'); });
@@ -255,6 +327,15 @@
 })();
 </script>
 
-<script src="assets/reveal.js" defer></script>
+<script>
+document.querySelectorAll('#topics .pill').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('#topics .pill').forEach(function(x){x.classList.remove('active');});
+    b.classList.add('active');
+  });
+});
+</script>
+<script src="/assets/reveal.js" defer></script>
+<script src="/assets/nav.js" defer></script>
 </body>
 </html>

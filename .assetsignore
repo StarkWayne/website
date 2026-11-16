@@ -1,0 +1,15 @@
+# Only the website is published. Everything else stays private.
+.git
+.gitignore
+.assetsignore
+.wrangler
+node_modules
+src
+scripts
+mocks
+wrangler.jsonc
+package.json
+package-lock.json
+README.md
+*.md
+_headers.example

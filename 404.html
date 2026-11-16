@@ -13,22 +13,36 @@
 </head>
 <body>
 
-<header class="nav">
+<header class="nav" id="nav">
   <div class="wrap">
-    <a class="brand" href="/"><img src="/assets/sw-logo-simple.png" alt="Stark Wayne"></a>
-    <div style="display:flex;align-items:center;gap:36px;">
-      <nav class="nav-links" id="navlinks">
-        <a href="/">Home</a>
-        <a href="/how-we-work">How we work</a>
-        <a href="/proof">Proof</a>
-        <a href="/about">About</a>
-        <a href="/contact">Contact</a>
-      </nav>
-      <a class="btn" href="/contact">Book a call</a>
-      <button class="nav-toggle" aria-label="Menu" onclick="document.getElementById('navlinks').classList.toggle('open')">&#8801;</button>
+    <a class="brand" href="/" aria-label="Stark Wayne home"><img src="/assets/sw-logo-simple.png" alt="Stark Wayne"></a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="/#what-we-do">What we do</a>
+      <a href="/#custom">Custom software</a>
+      <a href="/#who-we-are">Who we are</a>
+      <a href="/#company">Company</a>
+    </nav>
+    <div class="nav-right">
+      <a class="btn" href="/contact">Talk to us</a>
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
     </div>
   </div>
 </header>
+<div class="menu" id="menu">
+  <div class="menu-inner">
+    <ol>
+      <li><a href="/#what-we-do"><b>What we do</b><small>MPX, and software outside it</small></a></li>
+      <li><a href="/#custom"><b>Custom software</b><small>Take over an app, or build something new</small></a></li>
+      <li><a href="/#who-we-are"><b>Who we are</b><small>Small, senior and still building</small></a></li>
+      <li><a href="/#company"><b>Company</b><small>The details, and careers</small></a></li>
+      <li><a href="/contact"><b>Contact</b><small>Talk to the people who build it</small></a></li>
+    </ol>
+    <div class="menu-foot">
+      <a class="btn" href="/contact">Talk to us</a>
+      <p><a href="mailto:hello@starkwayne.co.uk">hello@starkwayne.co.uk</a><br><a href="tel:+441785508060">01785 50 80 60</a><br><a class="mpx" href="https://www.mpx.co.uk">Visit mpx.co.uk &#8599;</a></p>
+    </div>
+  </div>
+</div>
 
 <main>
   <section class="page-head" style="padding:140px 0 120px;">
@@ -44,29 +58,36 @@
   </section>
 </main>
 
-<footer>
+<footer class="foot">
   <div class="wrap">
-    <div class="foot-top">
+    <div class="foot-grid">
       <div>
         <img src="/assets/sw-logo-simple.png" alt="Stark Wayne">
-        <p style="max-width:32ch;margin:0;color:var(--graphite);">The people you come to when you need something built.</p>
+        <p>The people you come to when you need something built. The company behind MPX.</p>
       </div>
-      <div class="foot-links">
-        <a href="/">Home</a>
-        <a href="/how-we-work">How we work</a>
-        <a href="/proof">Proof</a>
-        <a href="/about">About</a>
-        <a href="/contact">Contact</a>
-        <a href="https://mpx.co.uk">MPX &#8599;</a>
+      <div>
+        <h4>Stark Wayne</h4>
+        <a href="/#what-we-do">What we do</a>
+        <a href="/#custom">Custom software</a>
+        <a href="/#who-we-are">Who we are</a>
+        <a href="/#company">Company</a>
+        <a href="/#careers">Careers</a>
+      </div>
+      <div>
+        <h4>Get in touch</h4>
+        <a href="/contact">Talk to us</a>
+        <a href="mailto:hello@starkwayne.co.uk">hello@starkwayne.co.uk</a>
+        <a href="tel:+441785508060">01785 50 80 60</a>
+        <a class="mpx" href="https://www.mpx.co.uk">Visit mpx.co.uk &#8599;</a>
       </div>
     </div>
     <div class="foot-legal">
-      <span>Stark Wayne Ltd · Registered in England and Wales, company no. 09495737 · Woodland Lodge, Dunston Business Village, Stafford Road, Penkridge, Staffordshire, ST18 9AB</span>
-      <span><a href="mailto:hello@starkwayne.co.uk">hello@starkwayne.co.uk</a> · 01785 50 80 60</span>
+      <span>&copy; <span id="yr">2026</span> Stark Wayne Ltd. Registered in England and Wales, company no. 09495737. Registered office: Woodland Lodge, Dunston Business Village, Stafford Road, Penkridge, Staffordshire ST18 9AB.</span>
     </div>
   </div>
 </footer>
 
 <script src="/assets/reveal.js" defer></script>
+<script src="/assets/nav.js" defer></script>
 </body>
 </html>
